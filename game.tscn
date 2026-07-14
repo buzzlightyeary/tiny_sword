@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://db3wpcbs6srb7"]
+
+[ext_resource type="PackedScene" uid="uid://berckeryokpvf" path="res://test_scene.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://cqxqa4e3ganfv" path="res://game.gd" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://c1cce1ry226sl" path="res://Entities/Effects/effects.tscn" id="3_feb5d"]
+
+[node name="Game" type="Node2D" unique_id=1806841263]
+script = ExtResource("1_e2o6t")
+
+[node name="effects" parent="." unique_id=1735682192 instance=ExtResource("3_feb5d")]
+
+[node name="test_scene" parent="." unique_id=596509108 instance=ExtResource("1_80nbo")]

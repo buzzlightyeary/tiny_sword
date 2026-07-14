@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://o6lfc3ves4g"]
+
+[ext_resource type="Script" uid="uid://c0rtninf3lnbx" path="res://scene_handler.gd" id="1_8qim7"]
+[ext_resource type="PackedScene" uid="uid://bn4jnm4qduruf" path="res://UI/Menus/main_menu.tscn" id="2_qjdn2"]
+[ext_resource type="PackedScene" uid="uid://db3wpcbs6srb7" path="res://game.tscn" id="3_cidb5"]
+[ext_resource type="PackedScene" uid="uid://c2atmjgntjj5o" path="res://UI/Menus/game_end_menu.tscn" id="4_cidb5"]
+
+[node name="Scene_handler" type="Control" unique_id=1721763987]
+custom_minimum_size = Vector2(600, 800)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_8qim7")
+main_menu_scene = ExtResource("2_qjdn2")
+game_scene = ExtResource("3_cidb5")
+game_end_scene = ExtResource("4_cidb5")

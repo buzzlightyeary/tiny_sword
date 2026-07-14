@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c1cce1ry226sl"]
+
+[ext_resource type="Script" uid="uid://b0b17e8o16ftw" path="res://Entities/Effects/effects.gd" id="1_oa8d3"]
+[ext_resource type="PackedScene" uid="uid://ubmufk8cxdm" path="res://Entities/Effects/death/death.tscn" id="2_oa8d3"]
+
+[node name="effects" type="Node2D" unique_id=1735682192]
+script = ExtResource("1_oa8d3")
+death = ExtResource("2_oa8d3")
+
+

@@ -1,0 +1,296 @@
+[gd_scene format=3 uid="uid://dh30wxcm6212s"]
+
+[ext_resource type="Script" uid="uid://cf5is7iu73kc5" path="res://Entities/Enemies/BaseEnemy/enemy.gd" id="1_a1tal"]
+[ext_resource type="Texture2D" uid="uid://krga3ffnmvq4" path="res://assets/enemy_warriors.png" id="2_hejmc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sam88"]
+radius = 27.018513
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a1tal"]
+animation = &"attack1_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hejmc"]
+animation = &"attack1"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_a1tal"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_a1tal")
+blend_point_0/pos = -1.000654
+blend_point_1/node = SubResource("AnimationNodeAnimation_hejmc")
+blend_point_1/pos = 0.99672997
+blend_mode = 1
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_hejmc"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_na7cs"]
+graph_offset = Vector2(-223.2, -6.4)
+nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_a1tal")
+nodes/BlendSpace1D/position = Vector2(-176, 112)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_hejmc")
+nodes/TimeScale/position = Vector2(64, 96)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"BlendSpace1D"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ejtru"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h6sf7"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fb345"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t1i2s"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_durol"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a1tal"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hejmc"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_t1dyn"]
+states/attack/node = SubResource("AnimationNodeBlendTree_na7cs")
+states/attack/position = Vector2(608.60004, 74.6)
+states/idle/node = SubResource("AnimationNodeAnimation_ejtru")
+states/idle/position = Vector2(363.6, 99.32)
+states/run/node = SubResource("AnimationNodeAnimation_h6sf7")
+states/run/position = Vector2(619.91907, 220.2)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_fb345"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_t1i2s"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_durol"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_a1tal"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_hejmc")]
+graph_offset = Vector2(89, 5)
+
+[sub_resource type="Animation" id="Animation_tyvmg"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_70ken"]
+resource_name = "attack1"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hitArea:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10035019, 0.15161133, 0.20026597),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(5.999998, -81.99999), Vector2(5.999998, -81.99999), Vector2(56.000008, -27.999996), Vector2(-10.999998, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hitArea:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.10035019, 0.15161133, 0.20026597),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.5305801, -0.5305801, 1.5029407, 3.4330626]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("hitArea:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.10035019, 0.15161133, 0.20026597),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_a1tal"]
+resource_name = "attack1_left"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hitArea:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10035019, 0.15161133, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-6, -82), Vector2(-6, -82), Vector2(-56, -28), Vector2(11, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hitArea:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.10035019, 0.15161133, 0.20026597),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.5305800926062758, 0.5305800926062758, -2.131047016685076, -3.529055747532534]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("hitArea:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.10035019, 0.15161133, 0.20026597),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_84t4m"]
+resource_name = "attack_2"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19]
+}
+
+[sub_resource type="Animation" id="Animation_chagc"]
+resource_name = "guard"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_3d83c"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_p22ra"]
+resource_name = "run"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 37]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vand6"]
+_data = {
+&"RESET": SubResource("Animation_tyvmg"),
+&"attack1": SubResource("Animation_70ken"),
+&"attack1_left": SubResource("Animation_a1tal"),
+&"attack_2": SubResource("Animation_84t4m"),
+&"guard": SubResource("Animation_chagc"),
+&"idle": SubResource("Animation_3d83c"),
+&"run": SubResource("Animation_p22ra")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1tal"]
+size = Vector2(9.617033, 22.643312)
+
+[node name="enemy" type="CharacterBody2D" unique_id=708273461 groups=["enemies"]]
+collision_layer = 34
+collision_mask = 18
+script = ExtResource("1_a1tal")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1060782317]
+position = Vector2(0, -39)
+texture = ExtResource("2_hejmc")
+hframes = 8
+vframes = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=582288606]
+position = Vector2(-2, -27)
+shape = SubResource("CircleShape2D_sam88")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1942866599]
+tree_root = SubResource("AnimationNodeStateMachine_t1dyn")
+anim_player = NodePath("../AnimationPlayer")
+parameters/attack/BlendSpace1D/blend_position = 0.0
+parameters/attack/TimeScale/scale = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1086117365]
+libraries/ = SubResource("AnimationLibrary_vand6")
+
+[node name="hitArea" type="Area2D" parent="." unique_id=1291277615]
+collision_layer = 32
+collision_mask = 16
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitArea" unique_id=1620652526]
+shape = SubResource("RectangleShape2D_a1tal")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1914568999]
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 48.53
+neighbor_distance = 128.0
+max_speed = 128.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(1, 0, 0, 1)
+
+[connection signal="area_shape_entered" from="hitArea" to="." method="_on_hit_area_area_shape_entered"]
+[connection signal="body_entered" from="hitArea" to="." method="_on_hit_area_body_entered"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

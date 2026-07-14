@@ -1,0 +1,259 @@
+extends CharacterBody2D
+
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+@export_category("Stats")
+@export var speed: int = 400
+@export var friction: float = 1500.0
+@export_category("Attack")
+@export var attack1_damage: int = 10
+@export var attack2_damage: int = 20	
+@export var attack_duration: float = 0.6
+
+enum PlayerState {
+	IDLE,
+	RUN,
+	GUARD,
+	ATTACK
+}
+
+enum AttackState {
+	ATTACK1,
+	ATTACK2
+}
+
+
+const ANIM_IDLE := &"idle"
+const ANIM_RUN := &"run"
+const ANIM_GUARD := &"guard"
+const ANIM_ATTACK1 := &"attack1"
+const ANIM_ATTACK2 := &"attack2"
+
+var move_direction: Vector2 = Vector2.ZERO
+var playback: AnimationNodeStateMachinePlayback
+var player_state: PlayerState = PlayerState.IDLE
+#var current_animation_state: StringName = &""
+var next_attack_state: AttackState = AttackState.ATTACK1
+var attack_time_left := 0.0
+var queued_attack := false
+var is_attack := false
+var is_guard := false
+
+func _ready() -> void:
+	animation_tree.active = true
+	playback = animation_tree.get("parameters/playback")
+
+func _physics_process(delta: float) -> void:
+	move_direction = Input.get_vector("left", "right", "up", "down")
+	is_attack = Input.is_action_just_pressed("click_left")
+	is_guard = Input.is_action_pressed("click_right")
+	#print(player_state==PlayerState.ATTACK)
+	if player_state == PlayerState.ATTACK:
+		print("here")
+		if is_attack:
+			queued_attack = true
+		if queued_attack and (move_direction != Vector2.ZERO or is_guard):
+			queued_attack = false
+			player_state = PlayerState.IDLE
+		return 
+
+
+	update_state()
+	update_facing()
+
+	update_animation()
+	movement_loop(delta)
+
+	#print("Player State: ", player_state)
+
+
+func update_state() -> void:
+	if is_attack:
+		player_state = PlayerState.ATTACK
+	elif is_guard:
+		player_state = PlayerState.GUARD
+	elif move_direction != Vector2.ZERO:
+		player_state = PlayerState.RUN
+	else:
+		player_state = PlayerState.IDLE	
+
+
+func update_facing() -> void:
+	if move_direction.x != 0.0:
+		sprite.flip_h = move_direction.x < 0.0
+
+
+func travel(state) -> void:
+	match state:
+		PlayerState.IDLE:
+			playback.travel(ANIM_IDLE)
+		PlayerState.RUN:
+			playback.travel(ANIM_RUN)
+		PlayerState.GUARD:
+			playback.travel(ANIM_GUARD)
+		PlayerState.ATTACK:
+			playback.travel(ANIM_ATTACK1)  # Replace with actual attack animation state
+
+
+#func movement_loop(delta: float) -> void:
+#	if player_state == PlayerState.ATTACK or player_state == PlayerState.GUARD:
+#		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+#	elif move_direction:
+#		velocity = move_direction * speed
+#	else:
+#		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+#	move_and_slide()
+
+
+func movement_loop(delta: float) -> void:
+	if player_state == PlayerState.RUN:
+		velocity = move_direction * speed
+		move_and_slide()
+
+func get_attack_animation(attack_state: AttackState) -> StringName:
+	return ANIM_ATTACK1 if attack_state == AttackState.ATTACK1 else ANIM_ATTACK2
+
+
+func update_animation() -> void:
+	match player_state:
+		PlayerState.IDLE:
+			playback.travel(ANIM_IDLE)
+		PlayerState.RUN:
+			playback.travel(ANIM_RUN)
+		PlayerState.GUARD:
+			playback.travel(ANIM_GUARD)
+		PlayerState.ATTACK:
+			var attack_animation := get_attack_animation(next_attack_state)
+			next_attack_state = AttackState.ATTACK2 if next_attack_state == AttackState.ATTACK1 else AttackState.ATTACK1
+			playback.travel(attack_animation)
+			await get_tree().create_timer(attack_duration).timeout
+			_on_attack_finished()
+			#player_state = PlayerState.IDLE
+
+func _on_attack_finished() -> void:
+	print("Attack finished",queued_attack)
+	if queued_attack:
+		update_animation()
+		queued_attack = false
+	else:
+		player_state = PlayerState.IDLE
+#func _physics_process(delta: float) -> void:
+#	move_direction = Input.get_vector("left", "right", "up", "down")
+#	update_facing()
+#	update_animation()
+#	handle_attack_input()
+#	update_attack(delta)
+#	movement_loop(delta)
+
+
+#func update_facing() -> void:
+#	if move_direction.x != 0.0:
+#		sprite.flip_h = move_direction.x < 0.0
+
+
+#func handle_attack_input() -> void:
+#	if not Input.is_action_just_pressed("click_left"):
+#		return
+
+#	if Input.is_action_pressed("click_right"):
+#		return
+
+#	if player_state == PlayerState.ATTACK:
+#		queued_attack = true
+#		return
+
+#	start_attack(next_attack_state)
+
+
+#func update_attack(delta: float) -> void:
+#	if player_state != PlayerState.ATTACK:
+#		return
+
+#	attack_time_left -= delta
+#	if attack_time_left > 0.0:
+#		return
+
+#	if queued_attack and not Input.is_action_pressed("click_right"):
+#		start_attack(next_attack_state)
+#	else:
+#		queued_attack = false
+#		set_player_state(get_move_state())
+
+
+#func start_attack(attack_state: AttackState) -> void:
+#	player_state = PlayerState.ATTACK
+#	queued_attack = false
+#	var attack_animation := get_attack_animation(attack_state)
+#	attack_time_left = get_animation_length(attack_animation)
+#	next_attack_state = AttackState.ATTACK2 if attack_state == AttackState.ATTACK1 else AttackState.ATTACK1
+#	velocity = Vector2.ZERO
+#	start_state(attack_animation)
+
+
+#func movement_loop(delta: float) -> void:
+#	if player_state == PlayerState.ATTACK or player_state == PlayerState.GUARD:
+#		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+#	elif move_direction:
+#		velocity = move_direction * speed
+#	else:
+#		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+
+#	move_and_slide()
+
+
+#func update_animation() -> void:
+#	if player_state == PlayerState.ATTACK:
+#		return
+
+#	set_player_state(get_move_state())
+
+
+#func get_animation_length(animation_name: StringName) -> float:
+#	var animation := animation_player.get_animation(animation_name)
+#	if animation == null:
+#		return 0.4
+
+#	return animation.length
+
+
+#func get_move_state() -> PlayerState:
+#	if Input.is_action_pressed("click_right"):
+#		return PlayerState.GUARD
+#	elif move_direction:
+#		return PlayerState.RUN
+
+#	return PlayerState.IDLE
+
+
+#func set_player_state(state: PlayerState) -> void:
+#	if player_state == state:
+#		return
+
+#	player_state = state
+#	match player_state:
+#		PlayerState.IDLE:
+#			travel(ANIM_IDLE)
+#		PlayerState.RUN:
+#			travel(ANIM_RUN)
+#		PlayerState.GUARD:
+#			travel(ANIM_GUARD)
+
+
+#func get_attack_animation(attack_state: AttackState) -> StringName:
+#	return ANIM_ATTACK1 if attack_state == AttackState.ATTACK1 else ANIM_ATTACK2
+
+
+#func travel(state: StringName) -> void:
+#	if current_animation_state == state:
+#		return
+
+#	current_animation_state = state
+#	playback.travel(state)
+
+
+#func start_state(state: StringName) -> void:
+#	current_animation_state = state
+#	playback.travel(state)
+
