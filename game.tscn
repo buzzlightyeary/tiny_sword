@@ -3,6 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://berckeryokpvf" path="res://test_scene.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://cqxqa4e3ganfv" path="res://game.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://c1cce1ry226sl" path="res://Entities/Effects/effects.tscn" id="3_feb5d"]
+[ext_resource type="Script" uid="uid://d1jiiw1h1y0jl" path="res://VFX/hud.gd" id="4_eow3j"]
+[ext_resource type="Texture2D" uid="uid://d1s23p8dn0ay1" path="res://UI/elements/Carved_3Slides.png" id="4_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://by2tr4oqf3u47" path="res://UI/elements/Banner_Connection_Up.png" id="5_7jktm"]
+[ext_resource type="FontFile" uid="uid://d00h4ctsh5ohj" path="res://assets/Fonts/PirataOne-Regular.ttf" id="6_ryrav"]
 
 [node name="Game" type="Node2D" unique_id=1806841263]
 script = ExtResource("1_e2o6t")
@@ -10,3 +14,70 @@ script = ExtResource("1_e2o6t")
 [node name="effects" parent="." unique_id=1735682192 instance=ExtResource("3_feb5d")]
 
 [node name="test_scene" parent="." unique_id=596509108 instance=ExtResource("1_80nbo")]
+position = Vector2(326, -22)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1456151311]
+
+[node name="HUD" type="Control" parent="UI" unique_id=1325670074]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 50.0
+script = ExtResource("4_eow3j")
+
+[node name="Hitpoints" type="TextureRect" parent="UI/HUD" unique_id=1161454599]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 64.0
+texture = ExtResource("4_fc0e3")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUD/Hitpoints" unique_id=1838928658]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -25.0
+offset_right = 190.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+nine_patch_stretch = true
+texture_progress = ExtResource("4_fc0e3")
+tint_progress = Color(0.1833334, 1, 0, 1)
+
+[node name="Level" type="TextureRect" parent="UI/HUD" unique_id=1441614277]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -27.0
+offset_top = 16.0
+offset_right = 165.0
+offset_bottom = 208.0
+texture = ExtResource("5_7jktm")
+
+[node name="Label" type="Label" parent="UI/HUD/Level" unique_id=206594378]
+custom_minimum_size = Vector2(450, 120)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -60.0
+offset_right = 225.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5882353)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/font = ExtResource("6_ryrav")
+theme_override_font_sizes/font_size = 60
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

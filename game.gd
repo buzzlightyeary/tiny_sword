@@ -3,23 +3,29 @@ extends Node
 signal game_over(victory:bool)
 
 @onready var death_effect: Node2D = $effects
+@onready var hud:Control=$UI/HUD
 
 var total_enemies_cnt: int = 0
 var kill_enemies_cnt: int = 0
 
+var player
+var enemys
+
 signal levelUp
 
 func _ready() -> void:
-	print("GAME READY")
-	var enemys = get_tree().get_nodes_in_group("enemies")
-	var player = get_tree().get_nodes_in_group("player")[0]
+	enemys = get_tree().get_nodes_in_group("enemies")
+	player = get_tree().get_nodes_in_group("player")[0]
 	total_enemies_cnt = enemys.size()
+	print("GAME READY",total_enemies_cnt)
+
 	kill_enemies_cnt = 0
 	for enemy in enemys:
 		print(enemy.name)
 		enemy.die.connect(_on_enemy_die)
 	
 	levelUp.connect(player.calculate_stats)
+	player.hp_changed.connect(hud.set_hp_bar_value)
 
 func _on_enemy_die(experience: int, death_position: Vector2) -> void:
 	get_experience(experience)
@@ -36,12 +42,15 @@ func get_experience(experience: int) -> void:
 		player_data.experience += experience
 		if(player_data.experience >= level_data.level_experience_list[player_data.level]):
 			level_up()
+		player_data.save_data()
 	
 
 func level_up() -> void:
 	print("Player leveled up! New level: ", player_data.level + 1)
 	player_data.experience -= level_data.level_experience_list[player_data.level]
 	player_data.level += 1
+	player_data.save_data()
+	hud.set_level_label()
 	levelUp.emit()
 	
 func spawn_effect(effect_name: String, position: Vector2) -> void:

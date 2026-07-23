@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://c2atmjgntjj5o"]
 
 [ext_resource type="FontFile" uid="uid://d00h4ctsh5ohj" path="res://assets/Fonts/PirataOne-Regular.ttf" id="1_cava2"]
+[ext_resource type="Script" uid="uid://pst7dtnm66k7" path="res://UI/Menus/game_end_menu.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dd5chn7mty8ao" path="res://UI/buttons/Button_Blue_3Slides.png" id="2_i0h1o"]
 [ext_resource type="Texture2D" uid="uid://t6ugsh3rd7ag" path="res://UI/buttons/Button_Blue_3Slides_Pressed.png" id="3_du254"]
 [ext_resource type="Texture2D" uid="uid://crpe6wlm1i2bo" path="res://UI/buttons/Button_Hover_3Slides.png" id="4_e6xdu"]
 
 [node name="game_end_menu" type="Control" unique_id=605001779]
+script = ExtResource("1_script")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,3 +116,5 @@ theme_override_font_sizes/font_size = 60
 text = "Main Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/replay" to="." method="_on_replay_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/main_menu" to="." method="_on_main_menu_pressed"]

@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal levelUp
+signal hp_changed(val:int)
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_tree: AnimationTree = $AnimationTree
@@ -12,6 +12,8 @@ signal levelUp
 @export_category("Attack")
 @export var attack1_damage: int = 60
 #@export var attack_speed: float = 0.4
+
+var currentHealth:int
 
 enum PlayerState {
 	IDLE,
@@ -29,7 +31,9 @@ var isAttack: bool = false
 
 
 func _ready() -> void:
+	print("player parent",get_parent())
 	animation_tree.active = true
+	currentHealth = maxHealth
 	calculate_stats()
 
 
@@ -108,7 +112,15 @@ func take_damage(damage: int, attack_position: Vector2) -> void:
 		if attack_direction.dot(facing_direction) > 0:
 			print("Attack blocked!")
 			return
-	maxHealth -= damage
-	if maxHealth <= 0:
+	currentHealth -= damage
+	var percentage : int = currentHealth*100/maxHealth 
+	hp_changed.emit(percentage)
+
+
+	if currentHealth <= 0:
 		print("Player has died.")
-		queue_free()
+		death()
+
+func death() -> void:
+	get_parent().get_parent().game_over.emit(false)
+	pass
