@@ -66,6 +66,11 @@ Entry point flow (main scene `scene_handler.tscn`, script `scene_handler.gd`):
   machine (IDLE / CHASE / ATTACK); chases via `NavigationAgent2D` when the player is within
   `chase_distance`. Emits `die(experience, position)` on death; `game.gd` counts kills and
   awards experience.
+- **Line of sight** (`Entities/Player/player_base.gd`): units with
+  `requires_line_of_sight = true` (archers, set in `anchor.gd`) raycast against the
+  `world` physics layer (`collide_with_areas = true`, so building `Area2D`s count as
+  blockers) before acquiring or attacking a target; blocked targets are skipped in
+  `find_target()` and dropped in `updateAction()`. Melee units leave the flag off.
 - **Leveling:** `game.gd` accumulates experience in the `player_data` autoload and levels up
   against `level_data.level_experience_list` (max level 5). Level-ups emit `levelUp`, which
   the player uses to recalculate attack speed via `Equations.calculate_attack_speed()`.

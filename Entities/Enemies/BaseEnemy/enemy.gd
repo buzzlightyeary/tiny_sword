@@ -11,7 +11,6 @@ enum EnemyState {
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
-@onready var player: CharacterBody2D = %player
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
 
@@ -27,12 +26,13 @@ enum EnemyState {
 
 var enemyState: EnemyState = EnemyState.IDLE
 var knockback_velocity: Vector2 = Vector2.ZERO
-
+var player: CharacterBody2D
 
 func _ready() -> void:
 	print("Enemy ready")
 	add_to_group("enemy")
 	animation_tree.active = true
+	player = get_tree().get_nodes_in_group("player")[0]
 
 
 func _physics_process(delta: float) -> void:

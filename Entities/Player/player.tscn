@@ -499,6 +499,7 @@ position = Vector2(-2, -45.5)
 shape = SubResource("RectangleShape2D_tekja")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1113808367]
+path_desired_distance = 10.0
 path_postprocessing = 1
 avoidance_enabled = true
 radius = 21.0

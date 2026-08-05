@@ -6,6 +6,7 @@ extends PlayerBase
 
 func _ready() -> void:
 	attack_speed = 0.8
+	requires_line_of_sight = true
 	super()
 	
 	print("anchor",nav_agent.avoidance_enabled)

@@ -16,6 +16,8 @@ signal hp_changed(val:int)
 @export var attack_damage: int = 60
 @export var attack_distance: int = 70
 @export var warning_distance: int = 300
+# Ranged units (archers) set this to true: blocked targets are skipped.
+@export var requires_line_of_sight: bool = false
 #@export var attack_speed: float = 0.4
 
 var currentHealth:int
@@ -56,11 +58,22 @@ func find_target() -> Node2D:
 	var nearest: Node2D = null
 	var nearest_dist := INF
 	for e in detect_range_list:
+		if requires_line_of_sight and not has_line_of_sight(e):
+			continue
 		var d := global_position.distance_squared_to(e.global_position)
 		if d < nearest_dist:
 			nearest_dist = d
 			nearest = e
 	return nearest
+
+
+# Line-of-sight ray against the world layer (terrain colliders + building Area2Ds).
+func has_line_of_sight(target_node: Node2D) -> bool:
+	var query := PhysicsRayQueryParameters2D.create(global_position, target_node.global_position)
+	query.collision_mask = 1  # world layer
+	query.collide_with_areas = true  # buildings use Area2D, not physics bodies
+	var result := get_world_2d().direct_space_state.intersect_ray(query)
+	return result.is_empty()
 
 func acquire_target() -> void:
 	target = find_target()
@@ -88,6 +101,11 @@ func updateAction()->void:
 	var nearest_position = null
 	if target!=null:
 		nearest_position = target.global_position
+
+	# Drop targets that lost line of sight (e.g. moved behind a rock/building)
+	if target != null and requires_line_of_sight and not has_line_of_sight(target):
+		target = null
+		nearest_position = null
 
 	if nearest_position != null and global_position.distance_to(nearest_position) < attack_distance:
 		is_arrived = true
@@ -164,7 +182,7 @@ func take_damage(damage: int, attack_position: Vector2) -> void:
 
 func death() -> void:
 	print('death')
-	get_parent().get_parent().game_over.emit(false)
+	get_parent().get_parent().get_parent().game_over.emit(false)
 	pass
 
 

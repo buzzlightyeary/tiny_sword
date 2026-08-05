@@ -2,7 +2,7 @@ extends Control
 
 const KNIGHT_SCENE: PackedScene = preload("res://Entities/Player/player.tscn")
 # Spawn a bit below the house so the knight doesn't overlap the building sprite.
-const SPAWN_OFFSET: Vector2 = Vector2(0, 100)
+const SPAWN_OFFSET: Vector2 = Vector2(0, 200)
 
 # Set by the Home that opened this menu (home.gd).
 var home: Node2D
