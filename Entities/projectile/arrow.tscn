@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dbmldho2cc7qh"]
+
+[ext_resource type="Script" uid="uid://dyoyo1eetyyi2" path="res://Entities/projectile/arrow.gd" id="1_t7yy5"]
+[ext_resource type="Texture2D" uid="uid://bjsv7e3df30t4" path="res://assets/Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Archer/Arrow/Arrow.png" id="2_t7yy5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7yy5"]
+size = Vector2(62, 12)
+
+[node name="Arrow" type="Area2D" unique_id=487831684]
+z_index = 99
+collision_layer = 0
+collision_mask = 32
+monitorable = false
+script = ExtResource("1_t7yy5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=379234559]
+texture = ExtResource("2_t7yy5")
+region_enabled = true
+region_rect = Rect2(1, 28, 63, 14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=564755437]
+z_index = 10
+shape = SubResource("RectangleShape2D_t7yy5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

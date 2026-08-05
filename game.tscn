@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://db3wpcbs6srb7"]
 
-[ext_resource type="PackedScene" uid="uid://berckeryokpvf" path="res://test_scene.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://cqxqa4e3ganfv" path="res://game.gd" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://cwjmtvlc34kt3" path="res://checkpoints/checkoutpoint1.tscn" id="3_eow3j"]
 [ext_resource type="PackedScene" uid="uid://c1cce1ry226sl" path="res://Entities/Effects/effects.tscn" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://d1jiiw1h1y0jl" path="res://VFX/hud.gd" id="4_eow3j"]
 [ext_resource type="Texture2D" uid="uid://d1s23p8dn0ay1" path="res://UI/elements/Carved_3Slides.png" id="4_fc0e3"]
@@ -10,11 +10,9 @@
 
 [node name="Game" type="Node2D" unique_id=1806841263]
 script = ExtResource("1_e2o6t")
+level_scene = ExtResource("3_eow3j")
 
 [node name="effects" parent="." unique_id=1735682192 instance=ExtResource("3_feb5d")]
-
-[node name="test_scene" parent="." unique_id=596509108 instance=ExtResource("1_80nbo")]
-position = Vector2(326, -22)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1456151311]
 

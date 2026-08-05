@@ -56,9 +56,11 @@ func about(origin:String)->void:
 	pass
 
 func setting(origin:String)->void:
+	
 	pass
 
 func exit(origin:String)->void:
+	queue_free()
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

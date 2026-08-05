@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://65pekhoa0l1y"]
+
+[ext_resource type="Texture2D" uid="uid://c3vpuigg1dnn7" path="res://UI/elements/Carved_9Slides.png" id="1_34j43"]
+[ext_resource type="Texture2D" uid="uid://cfnk6p6p6kpd5" path="res://assets/archer_single.png" id="1_eb3tk"]
+[ext_resource type="FontFile" uid="uid://d00h4ctsh5ohj" path="res://assets/Fonts/PirataOne-Regular.ttf" id="2_1uh3t"]
+[ext_resource type="Script" uid="uid://cknookwy8mvct" path="res://UI/units/unit_ui.gd" id="2_36har"]
+[ext_resource type="Texture2D" uid="uid://dicn3xyxryqhw" path="res://assets/Tiny Swords/Tiny Swords (Update 010)/Resources/Resources/G_Idle.png" id="3_pg5ul"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_36har"]
+texture = ExtResource("1_34j43")
+
+[node name="PanelContainer" type="PanelContainer" unique_id=288148456]
+offset_right = 201.0
+offset_bottom = 235.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_36har")
+script = ExtResource("2_36har")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=302940204]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1337643346]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1744824596]
+layout_mode = 2
+texture = ExtResource("1_eb3tk")
+expand_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1788048388]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=1240918611]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="name" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=426335613]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5882353)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 8
+theme_override_fonts/font = ExtResource("2_1uh3t")
+text = "anchor"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=812885633]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("3_pg5ul")
+expand_mode = 2
+
+[node name="price" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=589422054]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5882353)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 8
+theme_override_fonts/font = ExtResource("2_1uh3t")
+theme_override_font_sizes/font_size = 16
+text = "10"

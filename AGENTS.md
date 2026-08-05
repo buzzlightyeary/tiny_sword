@@ -37,16 +37,21 @@ Entry point flow (main scene `scene_handler.tscn`, script `scene_handler.gd`):
 
 1. `Scene_handler` (Control) instantiates `UI/Menus/main_menu.tscn`.
 2. On `new_game_pressed` it frees the menu and instantiates `game.tscn` (`game.gd`, the
-   gameplay root). It connects `game.game_over(victory)` to the end screen.
+   gameplay root). It connects `game.game_over(victory)` to the end screen. To load a
+   different level, set `game_instance.level_scene` between `instantiate()` and
+   `add_child()`.
 3. On game over it instantiates `UI/Menus/game_end_menu.tscn` inside `Game/UI` and disables
    processing for player and enemies.
 
 `game.tscn` contains:
 
-- an instance of `test_scene.tscn` — the actual level: stacked `TileMapLayer`s
-  (water, ground, decorations, `navigateLayer` for navigation), a `player` instance
-  (`Entities/Player/player.tscn`), and two `enemy` instances
-  (`Entities/Enemies/BaseEnemy/enemy.tscn`) under an `enemys` node;
+- no static level node — `game.gd` instantiates its exported `level_scene`
+  (default `checkpoints/checkoutpoint1.tscn`) at runtime into `var level`, so level
+  root node names are never hardcoded. The level scene is a `Node2D` with stacked
+  `TileMapLayer`s (water, ground, decorations, `navigateLayer` for navigation) and
+  container nodes: `playerContainer` (group `"playerContainer"`),
+  `enemyContainer`, `buildingContainer`, and `effectContainer` (group
+  `"effectContainer"`, looked up by `game.gd` via the group, not a node path);
 - an `effects` node (`Entities/Effects/effects.tscn`) holding exported effect scenes;
 - a `UI` CanvasLayer with the `HUD` (script `VFX/hud.gd` — note: HUD script lives in `VFX/`,
   not `UI/HUD/`).
@@ -97,7 +102,8 @@ Entry point flow (main scene `scene_handler.tscn`, script `scene_handler.gd`):
 
 - `game.tscn` / `game.gd`, `scene_handler.tscn` / `scene_handler.gd`, `test_scene.tscn` —
   project-root scenes (root is where main scenes live; do not move them casually, scene
-  paths are hardcoded, e.g. `game.gd` looks up `get_node("test_scene")`).
+  paths are referenced by path, e.g. `game.tscn` exports `level_scene`). Levels themselves
+  live in `checkpoints/` and are instantiated dynamically by `game.gd`.
 - `Entities/` — gameplay entities: `Player/`, `Enemies/BaseEnemy/`, `Effects/` (plus `death/`
   effect). `Enemies/Goblin/`, `Enemies/Slime/`, `Items/` exist but are empty (planned).
 - `Levels/` — `BaseLevel/`, `Menus/`, `World_01/` — currently empty placeholders.

@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://cf5is7iu73kc5" path="res://Entities/Enemies/BaseEnemy/enemy.gd" id="1_a1tal"]
 [ext_resource type="Texture2D" uid="uid://krga3ffnmvq4" path="res://assets/enemy_warriors.png" id="2_hejmc"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sam88"]
-radius = 27.018513
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a1tal"]
+radius = 13.0
+height = 60.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a1tal"]
 animation = &"attack1_left"
@@ -221,6 +222,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_p22ra"]
 resource_name = "run"
 length = 0.6
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -250,19 +252,21 @@ _data = {
 size = Vector2(9.617033, 22.643312)
 
 [node name="enemy" type="CharacterBody2D" unique_id=708273461 groups=["enemies"]]
-collision_layer = 34
-collision_mask = 18
+collision_layer = 32
+collision_mask = 0
 script = ExtResource("1_a1tal")
+chase_distance = 300.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1060782317]
 position = Vector2(0, -39)
 texture = ExtResource("2_hejmc")
 hframes = 8
 vframes = 5
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=582288606]
-position = Vector2(-2, -27)
-shape = SubResource("CircleShape2D_sam88")
+position = Vector2(-1, -37)
+shape = SubResource("CapsuleShape2D_a1tal")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=1942866599]
 tree_root = SubResource("AnimationNodeStateMachine_t1dyn")
@@ -274,7 +278,7 @@ parameters/attack/TimeScale/scale = 1.0
 libraries/ = SubResource("AnimationLibrary_vand6")
 
 [node name="hitArea" type="Area2D" parent="." unique_id=1291277615]
-collision_layer = 32
+collision_layer = 0
 collision_mask = 16
 monitoring = false
 
@@ -284,13 +288,12 @@ shape = SubResource("RectangleShape2D_a1tal")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1914568999]
 path_postprocessing = 1
 avoidance_enabled = true
-radius = 48.53
+radius = 27.0
 neighbor_distance = 128.0
 max_speed = 128.0
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0, 0, 1)
 
-[connection signal="area_shape_entered" from="hitArea" to="." method="_on_hit_area_area_shape_entered"]
 [connection signal="body_entered" from="hitArea" to="." method="_on_hit_area_body_entered"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://blrsumvjbp0k0"]
+
+[ext_resource type="Texture2D" uid="uid://cbs4gle2gssdv" path="res://assets/Tiny Swords/Tiny Swords (Update 010)/Terrain/Water/Water.png" id="1_6vumg"]
+[ext_resource type="Script" uid="uid://ds44lderxixly" path="res://UI/Menus/hotel_menu.gd" id="1_xlx1r"]
+[ext_resource type="PackedScene" uid="uid://65pekhoa0l1y" path="res://UI/units/anchor_unit.tscn" id="2_6vumg"]
+[ext_resource type="PackedScene" uid="uid://jb5p1lcu1eqp" path="res://UI/units/knight_unit.tscn" id="2_xp82r"]
+[ext_resource type="Texture2D" uid="uid://dftg5qyvb5sn3" path="res://assets/Tiny Swords/Tiny Swords (Update 010)/UI/Icons/Regular_01.png" id="4_vwjc7"]
+[ext_resource type="Texture2D" uid="uid://cna0j3wq5cip8" path="res://assets/Tiny Swords/Tiny Swords (Update 010)/UI/Icons/Pressed_01.png" id="5_xlx1r"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vlbsj"]
+texture = ExtResource("1_6vumg")
+modulate_color = Color(1, 1, 1, 0.07450981)
+
+[node name="HotelMenu" type="Control" unique_id=686681582]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("1_xlx1r")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1881138221]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(1, 1, 1, 0.11372549)
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=526087138]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_vlbsj")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer" unique_id=2107146624]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="knight" parent="PanelContainer/HBoxContainer2" unique_id=643435443 instance=ExtResource("2_xp82r")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="anchor" parent="PanelContainer/HBoxContainer2" unique_id=1059895179 instance=ExtResource("2_6vumg")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PanelContainer2" type="PanelContainer" parent="." unique_id=431726568]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_bottom = 64.0
+grow_horizontal = 0
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer2" unique_id=2125028255]
+layout_mode = 2
+texture_normal = ExtResource("4_vwjc7")
+texture_pressed = ExtResource("5_xlx1r")
+
+[connection signal="gui_input" from="PanelContainer/HBoxContainer2/knight" to="." method="_on_knight_gui_input"]
+[connection signal="button_up" from="PanelContainer2/TextureButton" to="." method="_on_texture_button_button_up"]
