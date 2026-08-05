@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://cpsq3pymm3dl" path="res://Entities/Player/player.gdshader" id="2_y51ke"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0wddr"]
+resource_local_to_scene = true
 shader = ExtResource("2_y51ke")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_width = 1.0

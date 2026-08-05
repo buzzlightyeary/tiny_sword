@@ -187,6 +187,7 @@ func death() -> void:
 
 
 func set_selected(flag) -> void:
+	print("set_selected",flag)
 	is_select=flag
 	if(is_select):
 		sprite.material.set_shader_parameter("enable_outline", true)

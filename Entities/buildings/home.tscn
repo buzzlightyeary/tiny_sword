@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://blrsumvjbp0k0" path="res://UI/Menus/hotel_menu.tscn" id="2_um7jx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g3a2p"]
+resource_local_to_scene = true
 shader = ExtResource("1_g3a2p")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_width = 1.0

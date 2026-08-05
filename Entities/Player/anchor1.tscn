@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dgya0femokb2i" path="res://assets/Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Archer/Blue/Archer_Blue.png" id="3_uihbn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0wddr"]
+resource_local_to_scene = true
 shader = ExtResource("2_uihbn")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_width = 1.0

@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://cpsq3pymm3dl" path="res://Entities/Player/player.gdshader" id="2_lu8i8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3uyv8"]
+resource_local_to_scene = true
 shader = ExtResource("2_lu8i8")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_width = 1.0
@@ -439,6 +440,7 @@ radius = 211.0
 collision_layer = 26
 collision_mask = 0
 script = ExtResource("1_lu8i8")
+metadata/_edit_horizontal_guides_ = [-2.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1182964576]
 material = SubResource("ShaderMaterial_3uyv8")
