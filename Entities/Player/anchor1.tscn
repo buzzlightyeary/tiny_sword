@@ -600,9 +600,10 @@ shape = SubResource("CircleShape2D_kw11y")
 position = Vector2(34, -65)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=424908825]
+target_desired_distance = 20.0
 path_postprocessing = 1
 avoidance_enabled = true
-radius = 20.0
+radius = 21.09
 max_speed = 300.0
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)

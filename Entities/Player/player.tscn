@@ -501,10 +501,10 @@ position = Vector2(-2, -45.5)
 shape = SubResource("RectangleShape2D_tekja")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1113808367]
-path_desired_distance = 10.0
+target_desired_distance = 20.0
 path_postprocessing = 1
 avoidance_enabled = true
-radius = 21.0
+radius = 10.84
 max_speed = 274.83
 debug_enabled = true
 debug_path_custom_color = Color(0.9041694, 0.2575642, 0.63771343, 1)

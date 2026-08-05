@@ -22,12 +22,14 @@ hotel_menu = ExtResource("2_um7jx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=21014244]
 material = SubResource("ShaderMaterial_g3a2p")
+position = Vector2(0, -77.49999)
 texture = ExtResource("1_7o4eb")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1822913563]
+position = Vector2(0, -79.16666)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1616362190]
-position = Vector2(0, 0.833333)
+position = Vector2(0, 5.8333335)
 shape = SubResource("RectangleShape2D_yijsu")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

@@ -216,14 +216,16 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
-	print("_on_detection_area_body_entered",body)
 	detect_range_list.append(body)
+	print("_on_detection_area_body_entered",body,detect_range_list)
+
 	acquire_target()
 	pass # Replace with function body.
 
 func _on_detection_area_body_exited(body: Node2D) -> void:
-	print("_on_detection_area_body_exited",body)
 	detect_range_list.erase(body)
+	print("_on_detection_area_body_exited",body,detect_range_list)
+	acquire_target()
 	pass # Replace with function body.
 func _on_hit_area_body_entered(body: Node2D) -> void:
 	print("Hit area body entered: ", body)

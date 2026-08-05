@@ -64,4 +64,5 @@ texture_normal = ExtResource("4_vwjc7")
 texture_pressed = ExtResource("5_xlx1r")
 
 [connection signal="gui_input" from="PanelContainer/HBoxContainer2/knight" to="." method="_on_knight_gui_input"]
+[connection signal="gui_input" from="PanelContainer/HBoxContainer2/anchor" to="." method="_on_anchor_gui_input"]
 [connection signal="button_up" from="PanelContainer2/TextureButton" to="." method="_on_texture_button_button_up"]
